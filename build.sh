@@ -11,7 +11,7 @@ git submodule update
 
 set -e 
 cd `dirname $0`
-
+echo  "Hello ${AESD_MODIFIED_DEFCONFIG_REL_BUILDROOT}"
 if [ ! -e buildroot/.config ]
 then
 	echo "MISSING BUILDROOT CONFIGURATION FILE"
@@ -28,6 +28,5 @@ then
 else
 	echo "USING EXISTING BUILDROOT CONFIG"
 	echo "To force update, delete .config or make changes using make menuconfig and build again."
-	make -C buildroot BR2_EXTERNAL=${EXTERNAL_REL_BUILDROOT}
-
+	make -C buildroot BR2_EXTERNAL=${EXTERNAL_REL_BUILDROOT} BR2_ROOTFS_POST_BUILD_SCRIPT=../post_script.sh
 fi
